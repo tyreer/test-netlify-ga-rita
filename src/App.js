@@ -7,7 +7,14 @@ class App extends Component {
     const vidUrl = this.props.location.search.slice(1);
     return (
       <div className="App">
-        <ReactPlayer url={vidUrl} playing controls loop volume={0} muted />
+        <ReactPlayer
+          className="Video"
+          url={vidUrl}
+          playing
+          loop
+          volume={0}
+          muted
+        />
       </div>
     );
   }
