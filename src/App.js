@@ -14,6 +14,8 @@ class App extends Component {
           loop
           volume={0}
           muted
+          width={360}
+          controls
         />
       </div>
     );
