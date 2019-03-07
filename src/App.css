@@ -10,11 +10,13 @@
 
 .Video {
   border: 1px solid white;
-  margin-bottom: 20px;
 }
 
 .Button {
   background: transparent;
   border: none;
   font-size: 30px;
+  padding: 20px;
+  cursor: pointer;
+  outline: none;
 }
