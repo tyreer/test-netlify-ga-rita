@@ -1,14 +1,13 @@
 import React, { Component } from "react";
-import "./App.css";
 
-class App extends Component {
+class Video extends Component {
   render() {
     return (
-      <div className="App">
+      <div>
         <p>{this.props.location.search}</p>
       </div>
     );
   }
 }
 
-export default App;
+export default Video;
