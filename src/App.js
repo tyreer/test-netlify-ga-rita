@@ -1,11 +1,13 @@
 import React, { Component } from "react";
+import ReactPlayer from "react-player";
 import "./App.css";
 
 class App extends Component {
   render() {
+    const vidUrl = this.props.location.search.split("?")[1];
     return (
       <div className="App">
-        <p>{this.props.location.search}</p>
+        <ReactPlayer url={vidUrl} playing controls />
       </div>
     );
   }

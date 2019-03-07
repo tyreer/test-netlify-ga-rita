@@ -5,12 +5,9 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Router } from "@reach/router";
 
-import Video from "./Video";
-
 ReactDOM.render(
   <Router>
     <App path="/" />
-    <Video path="/:videoUrl" />
   </Router>,
   document.getElementById("root")
 );
