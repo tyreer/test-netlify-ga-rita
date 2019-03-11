@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export const useWindowWidth = () => {
   const [width, setWidth] = useState(window.innerWidth);
@@ -12,4 +12,25 @@ export const useWindowWidth = () => {
   });
 
   return width;
+};
+
+// https://overreacted.io/making-setinterval-declarative-with-react-hooks/
+export const useInterval = (callback, delay) => {
+  const savedCallback = useRef();
+
+  // Remember the latest function.
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  // Set up the interval.
+  useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+    if (delay !== null) {
+      let id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
 };

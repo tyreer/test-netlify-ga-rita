@@ -1,29 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { useSpring, animated } from "react-spring";
 import ReactPlayer from "react-player";
-import { useWindowWidth } from "./Hooks.js";
+import { useWindowWidth, useInterval } from "./Hooks.js";
 import "./App.css";
-
-// https://overreacted.io/making-setinterval-declarative-with-react-hooks/
-const useInterval = (callback, delay) => {
-  const savedCallback = useRef();
-
-  // Remember the latest function.
-  useEffect(() => {
-    savedCallback.current = callback;
-  }, [callback]);
-
-  // Set up the interval.
-  useEffect(() => {
-    function tick() {
-      savedCallback.current();
-    }
-    if (delay !== null) {
-      let id = setInterval(tick, delay);
-      return () => clearInterval(id);
-    }
-  }, [delay]);
-};
 
 const animValues = scale => `perspective(600px) scale(${scale})`;
 
@@ -65,8 +44,8 @@ const App = ({ location }) => {
               loop
               volume={0}
               muted
-              width={100}
-              height={100}
+              width={isNarrow ? 200 : 100}
+              height={isNarrow ? 200 : 100}
               playsinline={true}
             />
           </button>
