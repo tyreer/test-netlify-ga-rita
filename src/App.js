@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useSpring, animated } from "react-spring";
 import ReactPlayer from "react-player";
+import { useWindowWidth } from "./Hooks.js";
 import "./App.css";
 
 // https://overreacted.io/making-setinterval-declarative-with-react-hooks/
@@ -40,14 +41,18 @@ const App = ({ location }) => {
     config: { mass: 2, tension: 500, friction: 40 }
   }));
 
+  const isNarrow = useWindowWidth() < 400;
+
   return (
     <div className="App">
       <div className={`Container Border-${borderState}`}>
         <animated.div
           class="card"
-          onMouseEnter={() => set({ scale: [6] })}
-          onMouseLeave={() => set({ scale: [1.5] })}
-          style={{ transform: props.scale.interpolate(animValues) }}
+          onMouseEnter={() => (isNarrow ? null : set({ scale: [6] }))}
+          onMouseLeave={() => (isNarrow ? null : set({ scale: [1.5] }))}
+          style={
+            isNarrow ? null : { transform: props.scale.interpolate(animValues) }
+          }
         >
           <button
             className="Button"
