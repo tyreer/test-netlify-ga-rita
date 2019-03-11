@@ -5,15 +5,39 @@
   align-items: center;
   flex-direction: column;
   height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
 }
 
-.Video {
-  width: 360px;
+.Border-1 {
+  border-right: 80vw solid #415f77;
+  border-left: 80vw solid #d1e9ea;
+  border-top: 80vw solid #fc5050;
+  border-bottom: 80vw solid #ffd00c;
+}
+
+.Border-2 {
+  border-left: 80vw solid #415f77;
+  border-top: 80vw solid #d1e9ea;
+  border-bottom: 80vw solid #fc5050;
+  border-right: 80vw solid #ffd00c;
+}
+.Border-3 {
+  border-top: 80vw solid #415f77;
+  border-bottom: 80vw solid #d1e9ea;
+  border-right: 80vw solid #fc5050;
+  border-left: 80vw solid #ffd00c;
+}
+.Border-4 {
+  border-bottom: 80vw solid #415f77;
+  border-right: 80vw solid #d1e9ea;
+  border-left: 80vw solid #fc5050;
+  border-top: 80vw solid #ffd00c;
 }
 
 .Button {
   border: none;
-  padding: 5px;
+  padding: 0;
   cursor: pointer;
   outline: none;
 }
