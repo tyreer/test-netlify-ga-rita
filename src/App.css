@@ -41,3 +41,7 @@
   cursor: pointer;
   outline: none;
 }
+
+.card {
+  will-change: transform;
+}

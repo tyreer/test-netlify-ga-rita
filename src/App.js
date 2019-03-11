@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useSpring, animated } from "react-spring";
 import ReactPlayer from "react-player";
 import "./App.css";
 
@@ -23,6 +24,8 @@ const useInterval = (callback, delay) => {
   }, [delay]);
 };
 
+const animValues = scale => `perspective(600px) scale(${scale})`;
+
 const App = ({ location }) => {
   let [shouldPlay, updatePlayState] = useState(true);
   let [borderState, updateBorderState] = useState(1);
@@ -32,22 +35,37 @@ const App = ({ location }) => {
     borderState < 4 ? updateBorderState(borderState++) : updateBorderState(1);
   }, 1300);
 
+  const [props, set] = useSpring(() => ({
+    scale: [1.5],
+    config: { mass: 2, tension: 500, friction: 40 }
+  }));
+
   return (
     <div className="App">
       <div className={`Container Border-${borderState}`}>
-        <button className="Button" onClick={() => updatePlayState(!shouldPlay)}>
-          <ReactPlayer
-            className="Video"
-            url={vidUrl}
-            playing={shouldPlay}
-            loop
-            volume={0}
-            muted
-            width={300}
-            height={300}
-            playsinline={true}
-          />
-        </button>
+        <animated.div
+          class="card"
+          onMouseEnter={() => set({ scale: [6] })}
+          onMouseLeave={() => set({ scale: [1.5] })}
+          style={{ transform: props.scale.interpolate(animValues) }}
+        >
+          <button
+            className="Button"
+            onClick={() => updatePlayState(!shouldPlay)}
+          >
+            <ReactPlayer
+              className="Video"
+              url={vidUrl}
+              playing={shouldPlay}
+              loop
+              volume={0}
+              muted
+              width={100}
+              height={100}
+              playsinline={true}
+            />
+          </button>
+        </animated.div>
       </div>
     </div>
   );
