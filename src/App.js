@@ -37,12 +37,15 @@ const App = ({ location }) => {
       <div className={`Container Border-${borderState}`}>
         <button className="Button" onClick={() => updatePlayState(!shouldPlay)}>
           <ReactPlayer
+            className="Video"
             url={vidUrl}
             playing={shouldPlay}
             loop
             volume={0}
             muted
-            width={360}
+            width={300}
+            height={300}
+            playsinline={true}
           />
         </button>
       </div>
