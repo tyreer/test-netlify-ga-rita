@@ -1,5 +1,4 @@
 .App {
-  /* background: rgba(0, 255, 0, 255); */
   background: black;
   display: flex;
   justify-content: center;
@@ -9,14 +8,12 @@
 }
 
 .Video {
-  border: 1px solid white;
+  width: 360px;
 }
 
 .Button {
-  background: transparent;
   border: none;
-  font-size: 30px;
-  padding: 20px;
+  padding: 5px;
   cursor: pointer;
   outline: none;
 }

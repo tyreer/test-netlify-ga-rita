@@ -8,17 +8,16 @@ const App = ({ location }) => {
   const vidUrl = location.search.slice(1);
   return (
     <div className="App">
-      <ReactPlayer
-        className="Video"
-        url={vidUrl}
-        playing={shouldPlay}
-        loop
-        volume={0}
-        muted
-        width={360}
-      />
       <button className="Button" onClick={() => updatePlayState(!shouldPlay)}>
-        ⏯
+        <ReactPlayer
+          className="Video"
+          url={vidUrl}
+          playing={shouldPlay}
+          loop
+          volume={0}
+          muted
+          width={360}
+        />
       </button>
     </div>
   );
