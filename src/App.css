@@ -35,8 +35,8 @@
 }
 
 .Button {
-  border: 0.1px solid white;
-  padding: 0;
+  border: 1px solid white;
+  padding: 8px;
   cursor: pointer;
   outline: none;
   background: transparent;
