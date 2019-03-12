@@ -7,13 +7,19 @@ import "./App.css";
 const animValues = scale => `perspective(600px) scale(${scale})`;
 
 const App = ({ location }) => {
-  let [shouldPlay, updatePlayState] = useState(true);
+  let [shouldPlay, updateShouldPlay] = useState(true);
   let [borderState, updateBorderState] = useState(1);
+  const [isRunning, setIsRunning] = useState(true);
+
   const vidUrl = location.search.slice(1);
 
-  useInterval(() => {
-    borderState < 4 ? updateBorderState(borderState++) : updateBorderState(1);
-  }, 1300);
+  const intervalDelay = 1300;
+  useInterval(
+    () => {
+      borderState < 4 ? updateBorderState(borderState++) : updateBorderState(1);
+    },
+    isRunning ? intervalDelay : null
+  );
 
   const [props, set] = useSpring(() => ({
     scale: [1.5],
@@ -35,7 +41,10 @@ const App = ({ location }) => {
         >
           <button
             className="Button"
-            onClick={() => updatePlayState(!shouldPlay)}
+            onClick={() => {
+              updateShouldPlay(!shouldPlay);
+              setIsRunning(!isRunning);
+            }}
           >
             <ReactPlayer
               className="Video"
