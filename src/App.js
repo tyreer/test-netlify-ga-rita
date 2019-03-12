@@ -4,39 +4,49 @@ import ReactPlayer from "react-player";
 import { useWindowWidth, useInterval } from "./Hooks.js";
 import "./App.css";
 
-const animValues = scale => `perspective(600px) scale(${scale})`;
+const animValues = scale => `scale(${scale})`;
 
 const App = ({ location }) => {
   let [shouldPlay, updateShouldPlay] = useState(true);
   let [borderState, updateBorderState] = useState(1);
   const [isRunning, setIsRunning] = useState(true);
 
-  const vidUrl = location.search.slice(1);
+  // Use video url passed in as search param or fallback self-hosted video
+  const vidUrl =
+    location.search.slice(1) ||
+    "http://techslides.com/demos/sample-videos/small.mp4";
 
+  // Rotate border colors
   const intervalDelay = 1300;
   useInterval(
     () => {
-      borderState < 4 ? updateBorderState(borderState++) : updateBorderState(1);
+      borderState <= 4
+        ? updateBorderState(borderState++)
+        : updateBorderState(1);
     },
     isRunning ? intervalDelay : null
   );
 
+  // Animate on mouseover on wideviews
   const [props, set] = useSpring(() => ({
-    scale: [1.5],
+    scale: [3.5],
     config: { mass: 2, tension: 500, friction: 40 }
   }));
 
+  // Check screen width
   const isNarrow = useWindowWidth() < 400;
 
   return (
     <div className="App">
-      <div className={`Container Border-${borderState}`}>
+      <div className={`Border-${borderState}`}>
         <animated.div
-          class="card"
-          onMouseEnter={() => (isNarrow ? null : set({ scale: [6] }))}
-          onMouseLeave={() => (isNarrow ? null : set({ scale: [1.5] }))}
+          className="Card"
+          onMouseEnter={() => (isNarrow ? null : set({ scale: [12] }))}
+          onMouseLeave={() => (isNarrow ? null : set({ scale: [3.5] }))}
           style={
-            isNarrow ? null : { transform: props.scale.interpolate(animValues) }
+            isNarrow
+              ? { transform: `scale(5)` }
+              : { transform: props.scale.interpolate(animValues) }
           }
         >
           <button
@@ -53,8 +63,8 @@ const App = ({ location }) => {
               loop
               volume={0}
               muted
-              width={isNarrow ? 200 : 100}
-              height={isNarrow ? 200 : 100}
+              width={isNarrow ? 50 : 50}
+              height={isNarrow ? 50 : 50}
               playsinline={true}
             />
           </button>
