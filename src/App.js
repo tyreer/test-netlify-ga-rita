@@ -4,12 +4,9 @@ import ReactPlayer from "react-player";
 import { useWindowWidth, useInterval } from "./Hooks.js";
 import "./App.css";
 
-const animValues = scale => `scale(${scale})`;
-
 const App = ({ location }) => {
-  let [shouldPlay, updateShouldPlay] = useState(true);
-  let [borderState, updateBorderState] = useState(1);
-  const [isRunning, setIsRunning] = useState(true);
+  let [videoPlaying, setVideoPlaying] = useState(true);
+  let [borderState, setBorderState] = useState(1);
 
   // Use video url passed in as search param or fallback self-hosted video
   const vidUrl =
@@ -20,16 +17,14 @@ const App = ({ location }) => {
   const intervalDelay = 1300;
   useInterval(
     () => {
-      borderState <= 4
-        ? updateBorderState(borderState++)
-        : updateBorderState(1);
+      borderState <= 4 ? setBorderState(borderState++) : setBorderState(1);
     },
-    isRunning ? intervalDelay : null
+    videoPlaying ? intervalDelay : null
   );
 
-  // Animate on mouseover on wideviews
-  const [props, set] = useSpring(() => ({
-    scale: [3.5],
+  // Animate on mouseover on wide views
+  const [springProps, set] = useSpring(() => ({
+    transform: "scale(3.5)",
     config: { mass: 2, tension: 500, friction: 40 }
   }));
 
@@ -41,30 +36,29 @@ const App = ({ location }) => {
       <div className={`Border-${borderState}`}>
         <animated.div
           className="Card"
-          onMouseEnter={() => (isNarrow ? null : set({ scale: [12] }))}
-          onMouseLeave={() => (isNarrow ? null : set({ scale: [3.5] }))}
+          onMouseEnter={() => set({ transform: "scale(12)" })}
+          onMouseLeave={() => set({ transform: "scale(3.5)" })}
           style={
             isNarrow
-              ? { transform: `scale(5)` }
-              : { transform: props.scale.interpolate(animValues) }
+              ? { transform: "scale(5)" }
+              : { transform: springProps.transform }
           }
         >
           <button
             className="Button"
             onClick={() => {
-              updateShouldPlay(!shouldPlay);
-              setIsRunning(!isRunning);
+              setVideoPlaying(!videoPlaying);
             }}
           >
             <ReactPlayer
               className="Video"
               url={vidUrl}
-              playing={shouldPlay}
+              playing={videoPlaying}
               loop
               volume={0}
               muted
-              width={isNarrow ? 50 : 50}
-              height={isNarrow ? 50 : 50}
+              width={50}
+              height={50}
               playsinline={true}
             />
           </button>

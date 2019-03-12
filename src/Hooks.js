@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 
+// https://medium.com/@dan_abramov/making-sense-of-react-hooks-fdbde8803889
+// https://gist.github.com/gaearon/cb5add26336003ed8c0004c4ba820eae
 export const useWindowWidth = () => {
   const [width, setWidth] = useState(window.innerWidth);
 
