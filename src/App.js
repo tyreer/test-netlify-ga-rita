@@ -36,7 +36,7 @@ const App = ({ location }) => {
       <div className={`Border-${borderState}`}>
         <animated.div
           className="Card"
-          onMouseEnter={() => set({ transform: "scale(10)" })}
+          onMouseEnter={() => set({ transform: "scale(9)" })}
           onMouseLeave={() => set({ transform: "scale(3.5)" })}
           style={
             isNarrow
